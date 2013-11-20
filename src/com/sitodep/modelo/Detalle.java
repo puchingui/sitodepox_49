@@ -41,6 +41,5 @@ public class Detalle extends Identificable {
 
 	public void setEstado(Estado estado) {
 		this.estado = estado;
-	}
-	
+	}	
 }

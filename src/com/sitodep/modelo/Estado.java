@@ -2,12 +2,10 @@ package com.sitodep.modelo;
 
 import javax.persistence.*;
 
-import org.openxava.annotations.*;
-
 @Entity
-public class Estado extends Identificable {
+public class Estado {
 
-	@Required
+	@Id
 	@Column(length=30)
 	private String descripcion;
 

@@ -6,7 +6,7 @@ import org.openxava.annotations.*;
 
 @Entity
 @Tab(properties="nombre, rol.descripcion")
-public class Empleado extends Eliminable {
+public class Empleado extends Identificable {
 
 	@Required
 	@Column(length=50)

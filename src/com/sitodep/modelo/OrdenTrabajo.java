@@ -9,9 +9,9 @@ import org.openxava.calculators.*;
 import org.openxava.jpa.*;
 
 @Entity
-@Tab(properties="codigo, fecha, cliente.nombre, recibido.nombre, nota")
-@View(members="ano, codigo, fecha; cliente; Quien [recibido, responsable]; detalles; nota")
-public class OrdenTrabajo extends Eliminable {
+@Tab(properties="codigo, fecha, cliente.nombre, recibido.nombre, listo, nota")
+@View(members="ano, codigo, fecha, listo; cliente; Quien [recibido, responsable]; detalles; nota")
+public class OrdenTrabajo extends Identificable {
 
 	@Column(length=4)
 	@DefaultValueCalculator(CurrentYearCalculator.class)
@@ -36,6 +36,8 @@ public class OrdenTrabajo extends Eliminable {
 	@ManyToOne(fetch=FetchType.LAZY, optional=true)
 	@DescriptionsList
 	private Empleado responsable;
+	
+	private boolean listo;
 	
 	@OneToMany(mappedBy = "padre", cascade = CascadeType.ALL)
 	@ListProperties("equipo.serial, equipo.tipo.descripcion, equipo.marca.nombre, equipo.modelo, estado.descripcion, equipo.observacion")
@@ -103,7 +105,15 @@ public class OrdenTrabajo extends Eliminable {
 	public void setResponsable(Empleado responsable) {
 		this.responsable = responsable;
 	}
-	
+
+	public boolean isListo() {
+		return listo;
+	}
+
+	public void setListo(boolean listo) {
+		this.listo = listo;
+	}
+
 	public Collection<Detalle> getDetalles() {
 		return detalles;
 	}
