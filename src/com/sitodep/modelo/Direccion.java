@@ -13,14 +13,17 @@ public class Direccion {
 	@Column(length=75)
 	private String linea2;		//Apartamento, suite, unidad, edificio, piso, etc.
 	
-	@Column(length=50)
-	private String sector;
+	@ManyToOne
+	@DescriptionsList
+	private Sector sector;
 	
-	@Column(length=30)
-	private String ciudad;
-	
-	@Column(length=30)
-	private String provincia;
+	@ManyToOne
+	@DescriptionsList
+	private Ciudad ciudad;
+
+	@ManyToOne
+	@DescriptionsList
+	private Provincia provincia;
 	
 	@Stereotype("MEMO")
 	private String referencia;
@@ -41,27 +44,27 @@ public class Direccion {
 		this.linea2 = linea2;
 	}
 
-	public String getSector() {
+	public Sector getSector() {
 		return sector;
 	}
 
-	public void setSector(String sector) {
+	public void setSector(Sector sector) {
 		this.sector = sector;
 	}
 
-	public String getCiudad() {
+	public Ciudad getCiudad() {
 		return ciudad;
 	}
 
-	public void setCiudad(String ciudad) {
+	public void setCiudad(Ciudad ciudad) {
 		this.ciudad = ciudad;
 	}
 
-	public String getProvincia() {
+	public Provincia getProvincia() {
 		return provincia;
 	}
 
-	public void setProvincia(String provincia) {
+	public void setProvincia(Provincia provincia) {
 		this.provincia = provincia;
 	}
 
