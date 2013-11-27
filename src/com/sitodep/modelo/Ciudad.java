@@ -14,7 +14,7 @@ public class Ciudad extends Identificable {
 	private String ciudad;
 	
 	@ManyToOne
-	@DescriptionsList()
+	@DescriptionsList(descriptionProperties="provincia")
 	private Provincia provincia;
 	
 	@OneToMany(mappedBy="ciudad")

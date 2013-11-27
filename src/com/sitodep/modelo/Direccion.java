@@ -14,15 +14,15 @@ public class Direccion {
 	private String linea2;		//Apartamento, suite, unidad, edificio, piso, etc.
 	
 	@ManyToOne
-	@DescriptionsList
+	@DescriptionsList(descriptionProperties="sector")
 	private Sector sector;
 	
 	@ManyToOne
-	@DescriptionsList
+	@DescriptionsList(descriptionProperties="ciudad")
 	private Ciudad ciudad;
 
 	@ManyToOne
-	@DescriptionsList
+	@DescriptionsList(descriptionProperties="provincia")
 	private Provincia provincia;
 	
 	@Stereotype("MEMO")
