@@ -9,8 +9,20 @@ import org.openxava.calculators.*;
 import org.openxava.jpa.*;
 
 @Entity
-@Tab(properties="codigo, fecha, cliente.nombre, recibido.nombre, listo, nota")
-@View(members="ano, codigo, fecha, listo; cliente; Quien [recibido, responsable]; detalles; nota")
+@Tab(properties="ano, codigo, fecha, cliente.nombre, estado.descripcion, prioridad, equipo.serial, equipo.modelo")
+@View(members="ano, codigo, fecha, estado, prioridad;"
+		+ "Datos { cliente;"
+		+ "Quien [recibido, responsable];"
+		+ "Equipo [ equipo;"
+					+ "bandejaSuperior, bandejaInferior, toner;"
+					+ "cableUSB, cableCorriente, fuente;"
+					+ "falta;"
+					+ "algoMasQueTrajo;"
+					+ "diagnosticoUsuario];"
+		+ "observaciones };"
+		+ "Solucion { reparador; "
+					+ "fechaSolucion; "
+					+ "diagnosticoTecnico }")
 public class OrdenTrabajo extends Identificable {
 
 	@Column(length=4)
@@ -25,7 +37,7 @@ public class OrdenTrabajo extends Identificable {
 	@DefaultValueCalculator(CurrentDateCalculator.class)
 	private Date fecha;
 	
-	@ManyToOne(fetch=FetchType.LAZY, optional=false)
+	@ManyToOne
 	@ReferenceView("Simple")
 	private Cliente cliente;
 	
@@ -37,14 +49,53 @@ public class OrdenTrabajo extends Identificable {
 	@DescriptionsList
 	private Empleado responsable;
 	
-	private boolean listo;
+	@ManyToOne
+	@ReferenceView("ParaOrden")
+	@NoFrame
+	private Equipo equipo;
 	
-	@OneToMany(mappedBy = "padre", cascade = CascadeType.ALL)
-	@ListProperties("equipo.serial, equipo.tipo.descripcion, equipo.marca.nombre, equipo.modelo, estado.descripcion, equipo.observacion")
-	private Collection<Detalle> detalles = new ArrayList<Detalle>();
+	private boolean bandejaSuperior;
+	
+	private boolean bandejaInferior;
+	
+	private boolean toner;
+	
+	private boolean cableUSB;
+	
+	private boolean cableCorriente;
+	
+	private boolean fuente;
+	
+	@Column(length=64)
+	private String falta;
+	
+	@Column(length=64)
+	private String algoMasQueTrajo;
+	
+	@Column(length=64)
+	private String diagnosticoUsuario;
+	
+	@Enumerated(EnumType.STRING)
+	private Prioridad prioridad;
+	
+	@ManyToOne(fetch = FetchType.LAZY, optional = true)
+	@DescriptionsList
+	private Estado estado;
 	
 	@Stereotype("MEMO")
-	private String nota;
+	private String observaciones;
+	
+	/***
+	 * Campos para la solucion
+	 */
+	@ManyToOne(fetch = FetchType.LAZY, optional = true)
+	@DescriptionsList
+	private Empleado reparador;
+	
+	private Date fechaSolucion;
+	
+	@Stereotype("MEMO")
+	private String diagnosticoTecnico;
 	
 	/* 8.20 pag 129 calcula un valor por defecto para multiples usuarios
 	 * metodo @PrePersist calculateCodigo()
@@ -56,6 +107,12 @@ public class OrdenTrabajo extends Identificable {
 		query.setParameter("ano", ano);
 		Integer ultimoCodigo = (Integer) query.getSingleResult();
 		this.codigo = ultimoCodigo == null ? 1 : ultimoCodigo + 1;
+	}
+	
+	private enum Prioridad {
+		Indispensable,
+		Urgente,
+		Normal
 	}
 
 	public int getAno() {
@@ -106,28 +163,131 @@ public class OrdenTrabajo extends Identificable {
 		this.responsable = responsable;
 	}
 
-	public boolean isListo() {
-		return listo;
+	public Equipo getEquipo() {
+		return equipo;
 	}
 
-	public void setListo(boolean listo) {
-		this.listo = listo;
+	public void setEquipo(Equipo equipo) {
+		this.equipo = equipo;
 	}
 
-	public Collection<Detalle> getDetalles() {
-		return detalles;
+	public boolean isBandejaSuperior() {
+		return bandejaSuperior;
 	}
 
-	public void setDetalles(Collection<Detalle> detalles) {
-		this.detalles = detalles;
+	public void setBandejaSuperior(boolean bandejaSuperior) {
+		this.bandejaSuperior = bandejaSuperior;
 	}
 
-	public String getNota() {
-		return nota;
+	public boolean isBandejaInferior() {
+		return bandejaInferior;
 	}
 
-	public void setNota(String nota) {
-		this.nota = nota;
+	public void setBandejaInferior(boolean bandejaInferior) {
+		this.bandejaInferior = bandejaInferior;
 	}
 
+	public boolean isToner() {
+		return toner;
+	}
+
+	public void setToner(boolean toner) {
+		this.toner = toner;
+	}
+
+	public boolean isCableUSB() {
+		return cableUSB;
+	}
+
+	public void setCableUSB(boolean cableUSB) {
+		this.cableUSB = cableUSB;
+	}
+
+	public boolean isCableCorriente() {
+		return cableCorriente;
+	}
+
+	public void setCableCorriente(boolean cableCorriente) {
+		this.cableCorriente = cableCorriente;
+	}
+
+	public boolean isFuente() {
+		return fuente;
+	}
+
+	public void setFuente(boolean fuente) {
+		this.fuente = fuente;
+	}
+
+	public String getFalta() {
+		return falta;
+	}
+
+	public void setFalta(String falta) {
+		this.falta = falta;
+	}
+
+	public String getAlgoMasQueTrajo() {
+		return algoMasQueTrajo;
+	}
+
+	public void setAlgoMasQueTrajo(String algoMasQueTrajo) {
+		this.algoMasQueTrajo = algoMasQueTrajo;
+	}
+
+	public String getDiagnosticoUsuario() {
+		return diagnosticoUsuario;
+	}
+
+	public void setDiagnosticoUsuario(String diagnosticoUsuario) {
+		this.diagnosticoUsuario = diagnosticoUsuario;
+	}
+
+	public Prioridad getPrioridad() {
+		return prioridad;
+	}
+
+	public void setPrioridad(Prioridad prioridad) {
+		this.prioridad = prioridad;
+	}
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+
+	public String getObservaciones() {
+		return observaciones;
+	}
+
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
+	}
+
+	public Empleado getReparador() {
+		return reparador;
+	}
+
+	public void setReparador(Empleado reparador) {
+		this.reparador = reparador;
+	}
+
+	public Date getFechaSolucion() {
+		return fechaSolucion;
+	}
+
+	public void setFechaSolucion(Date fechaSolucion) {
+		this.fechaSolucion = fechaSolucion;
+	}
+
+	public String getDiagnosticoTecnico() {
+		return diagnosticoTecnico;
+	}
+
+	public void setDiagnosticoTecnico(String diagnosticoTecnico) {
+		this.diagnosticoTecnico = diagnosticoTecnico;
+	}
 }

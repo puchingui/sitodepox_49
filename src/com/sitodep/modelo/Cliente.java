@@ -1,5 +1,7 @@
 package com.sitodep.modelo;
 
+import java.util.*;
+
 import javax.persistence.*;
 
 import org.openxava.annotations.*;
@@ -31,6 +33,10 @@ public class Cliente {
 	
 	@Embedded
 	private Direccion direccion;
+	
+	@OneToMany(mappedBy="cliente")
+	@ListProperties("codigo, fecha, estado.descripcion, prioridad, equipo.serial, equipo.modelo")
+	private Collection<OrdenTrabajo> ordenes;
 	
 	public String getRnc() {
 		return rnc;
@@ -86,5 +92,13 @@ public class Cliente {
 
 	public void setDireccion(Direccion direccion) {
 		this.direccion = direccion;
+	}
+
+	public Collection<OrdenTrabajo> getOrdenes() {
+		return ordenes;
+	}
+
+	public void setOrdenes(Collection<OrdenTrabajo> ordenes) {
+		this.ordenes = ordenes;
 	}
 }

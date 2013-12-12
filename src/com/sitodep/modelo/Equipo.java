@@ -1,12 +1,26 @@
 package com.sitodep.modelo;
 
+import java.util.*;
+
 import javax.persistence.*;
 
 import org.openxava.annotations.*;
 
 @Entity
-@Tab(properties="serial, tipo.descripcion, marca.nombre, modelo")
-@View(name="Simple", members="serial, tipo, marca, modelo")
+@Tab(properties="serial, tipo.descripcion, marca.nombre, modelo, cliente.nombre")
+@Views({
+	@View(members="serial, tipo, marca, modelo; "
+			+ "descripcion; "
+			+ "activo;"
+			+ "foto;"
+			+ "masFotos;"
+			+ "cliente;"
+			+ "observacion;"
+			+ "ordenes"),
+	@View(name="ParaOrden", members="serial, tipo, marca, modelo; "
+			+ "foto;"
+			+ "masFotos")
+})
 public class Equipo {
 	
 	@Id
@@ -21,12 +35,15 @@ public class Equipo {
 	@DescriptionsList
 	private Marca marca;
 	
-	@Column(length=30)
+	@Column(length=32)
 	@Required
 	private String modelo;
 	
-	@Column(length=50)
-	private String description;
+	@Column(length=64)
+	private String descripcion;
+	
+	@Column(length=16)
+	private String activo;
 	
 	@Stereotype("PHOTO")
 	private byte[] foto;
@@ -34,9 +51,16 @@ public class Equipo {
 	@Stereotype("IMAGES_GALLERY")
 	@Column(length=32)
 	private String masFotos;
+
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ReferenceView("Simple")
+	private Cliente cliente;
 	
 	@Stereotype("MEMO")
 	private String observacion;
+	
+	@OneToMany(mappedBy="equipo")
+	private Collection<OrdenTrabajo> ordenes;
 
 	public String getSerial() {
 		return serial;
@@ -70,14 +94,22 @@ public class Equipo {
 		this.modelo = modelo;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
+	public String getActivo() {
+		return activo;
+	}
+
+	public void setActivo(String activo) {
+		this.activo = activo;
+	}
+	
 	public byte[] getFoto() {
 		return foto;
 	}
@@ -94,6 +126,14 @@ public class Equipo {
 		this.masFotos = masFotos;
 	}
 
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	
 	public String getObservacion() {
 		return observacion;
 	}
@@ -101,5 +141,12 @@ public class Equipo {
 	public void setObservacion(String observacion) {
 		this.observacion = observacion;
 	}
-	
+
+	public Collection<OrdenTrabajo> getOrdenes() {
+		return ordenes;
+	}
+
+	public void setOrdenes(Collection<OrdenTrabajo> ordenes) {
+		this.ordenes = ordenes;
+	}
 }
