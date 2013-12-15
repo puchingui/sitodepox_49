@@ -26,6 +26,6 @@
 			<property name="hibernate.connection.username" value="tdi"/>
 			<property name="hibernate.connection.password" value="1512.1512"/>
         </properties>
-    </persistence-unit>   
+    </persistence-unit> 
         
 </persistence>

@@ -12,10 +12,8 @@ persistence.xml.
 <hibernate-configuration>
 	<session-factory>
 
-		<!-- Tomcat + PostgreSQL -->		<property name="hibernate.connection.datasource">java:comp/env/jdbc/SitodepDS</property>		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
-		<property name="hibernate.jdbc.use_get_generated_keys">false</property>		
-		<property name="hibernate.show_sql">false</property>
-				
+		<!-- Tomcat + PostgreSQL -->		<property name="hibernate.connection.datasource">java:comp/env/jdbc/SitodepDS</property>		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>		<property name="hibernate.jdbc.use_get_generated_keys">false</property>				<property name="hibernate.show_sql">false</property>
+		
 		<!-- GalleryImage is needed only if you uses IMAGES_GALLERY/GALERIA_IMAGENES stereotype -->
 		<mapping resource="GalleryImage.hbm.xml"/>
 		
