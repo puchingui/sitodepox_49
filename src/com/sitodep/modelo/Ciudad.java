@@ -11,21 +11,21 @@ public class Ciudad extends Identificable {
 
 	@Required
 	@Column(length=64, unique=true)
-	private String ciudad;
+	private String nombre;
 	
 	@ManyToOne
-	@DescriptionsList(descriptionProperties="provincia")
+	@DescriptionsList
 	private Provincia provincia;
 	
 	@OneToMany(mappedBy="ciudad")
 	private Collection<Sector> sectores;
 
-	public String getCiudad() {
-		return ciudad;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setCiudad(String ciudad) {
-		this.ciudad = ciudad;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public Provincia getProvincia() {

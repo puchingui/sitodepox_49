@@ -11,17 +11,17 @@ public class Provincia extends Identificable {
 
 	@Required
 	@Column(length=64, unique=true)
-	private String provincia;
+	private String nombre;
 
 	@OneToMany(mappedBy="provincia")
 	private Collection<Ciudad> ciudades;
 	
-	public String getProvincia() {
-		return provincia;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setProvincia(String provincia) {
-		this.provincia = provincia;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public Collection<Ciudad> getCiudades() {

@@ -60,6 +60,7 @@ public class Equipo {
 	private String observacion;
 	
 	@OneToMany(mappedBy="equipo")
+	@ListProperties("codigo, fecha, estado.descripcion, prioridad, equipo.serial, equipo.modelo")
 	private Collection<OrdenTrabajo> ordenes;
 
 	public String getSerial() {

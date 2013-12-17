@@ -4,6 +4,8 @@ import javax.persistence.*;
 
 import org.openxava.annotations.*;
 
+import com.sitodep.acciones.*;
+
 @Embeddable
 public class Direccion {
 
@@ -14,15 +16,16 @@ public class Direccion {
 	private String linea2;		//Apartamento, suite, unidad, edificio, piso, etc.
 	
 	@ManyToOne
-	@DescriptionsList(descriptionProperties="sector")
+	@DescriptionsList
 	private Sector sector;
 	
 	@ManyToOne
-	@DescriptionsList(descriptionProperties="ciudad")
+	@DescriptionsList
 	private Ciudad ciudad;
 
 	@ManyToOne
-	@DescriptionsList(descriptionProperties="provincia")
+	@DescriptionsList
+	@OnChange(AccionActualizaCiudad.class)
 	private Provincia provincia;
 	
 	@Stereotype("MEMO")

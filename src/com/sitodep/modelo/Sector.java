@@ -4,27 +4,32 @@ import javax.persistence.*;
 
 import org.openxava.annotations.*;
 
+/***
+ * Representa un Sector de una Ciudad
+ * @author Kenneth Burgos
+ *
+ */
 @Entity
 public class Sector extends Identificable {
 
 	@Required
 	@Column(length=64, unique=true)
-	private String sector;
+	private String nombre;
 	
 	@ManyToOne
-	@DescriptionsList(descriptionProperties="ciudad")
+	@DescriptionsList
 	private Ciudad ciudad;
 	
 	@ManyToOne
-	@DescriptionsList(descriptionProperties="provincia")
+	@DescriptionsList
 	private Provincia provincia;
 
-	public String getSector() {
-		return sector;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setSector(String sector) {
-		this.sector = sector;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public Ciudad getCiudad() {

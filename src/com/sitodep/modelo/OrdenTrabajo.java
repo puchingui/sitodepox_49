@@ -10,19 +10,19 @@ import org.openxava.jpa.*;
 
 @Entity
 @Tab(properties="ano, codigo, fecha, cliente.nombre, estado.descripcion, prioridad, equipo.serial, equipo.modelo")
-@View(members="ano, codigo, fecha, estado, prioridad;"
-		+ "Datos { cliente;"
-		+ "Quien [recibido, responsable];"
-		+ "Equipo [ equipo;"
-					+ "bandejaSuperior, bandejaInferior, toner;"
-					+ "cableUSB, cableCorriente, fuente;"
-					+ "falta;"
-					+ "algoMasQueTrajo;"
-					+ "diagnosticoUsuario];"
-		+ "observaciones };"
-		+ "Solucion { reparador; "
-					+ "fechaSolucion; "
-					+ "diagnosticoTecnico }")
+	@View(members="ano, codigo, fecha, estado, prioridad;"
+			+ "Datos { cliente;"
+			+ "Quien [recibido, responsable];"
+			+ "Equipo [ equipo;"
+						+ "bandejaSuperior, bandejaInferior, toner;"
+						+ "cableUSB, cableCorriente, fuente;"
+						+ "falta;"
+						+ "algoMasQueTrajo;"
+						+ "diagnosticoUsuario];"
+			+ "observaciones };"
+			+ "Solucion { reparador; "
+						+ "fechaSolucion; "
+						+ "diagnosticoTecnico }")
 public class OrdenTrabajo extends Identificable {
 
 	@Column(length=4)
