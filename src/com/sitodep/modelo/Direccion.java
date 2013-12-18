@@ -4,8 +4,6 @@ import javax.persistence.*;
 
 import org.openxava.annotations.*;
 
-import com.sitodep.acciones.*;
-
 @Embeddable
 public class Direccion {
 
@@ -14,19 +12,24 @@ public class Direccion {
 	
 	@Column(length=75)
 	private String linea2;		//Apartamento, suite, unidad, edificio, piso, etc.
-	
-	@ManyToOne
+
+	@ManyToOne(fetch=FetchType.LAZY)
 	@DescriptionsList
-	private Sector sector;
+	private Provincia provincia;
 	
-	@ManyToOne
-	@DescriptionsList
+	@ManyToOne(fetch=FetchType.LAZY)
+	@DescriptionsList(
+			descriptionProperties="nombre", 
+			depends="this.provincia", 
+			condition="${provincia.oid} = ?")
 	private Ciudad ciudad;
 
-	@ManyToOne
-	@DescriptionsList
-	@OnChange(AccionActualizaCiudad.class)
-	private Provincia provincia;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@DescriptionsList(
+			descriptionProperties="nombre", 
+			depends="this.ciudad", 
+			condition="${ciudad.oid} = ?")
+	private Sector sector;
 	
 	@Stereotype("MEMO")
 	private String referencia;
@@ -47,12 +50,12 @@ public class Direccion {
 		this.linea2 = linea2;
 	}
 
-	public Sector getSector() {
-		return sector;
+	public Provincia getProvincia() {
+		return provincia;
 	}
 
-	public void setSector(Sector sector) {
-		this.sector = sector;
+	public void setProvincia(Provincia provincia) {
+		this.provincia = provincia;
 	}
 
 	public Ciudad getCiudad() {
@@ -63,12 +66,12 @@ public class Direccion {
 		this.ciudad = ciudad;
 	}
 
-	public Provincia getProvincia() {
-		return provincia;
+	public Sector getSector() {
+		return sector;
 	}
 
-	public void setProvincia(Provincia provincia) {
-		this.provincia = provincia;
+	public void setSector(Sector sector) {
+		this.sector = sector;
 	}
 
 	public String getReferencia() {

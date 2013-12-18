@@ -7,8 +7,8 @@ import javax.persistence.*;
 import org.openxava.annotations.*;
 
 @Entity
-@View(name="Simple", members="rnc, nombre")
 @Tab(properties="rnc, nombre, contacto, email, telefono")
+@View(name="Simple", members="rnc, nombre")
 public class Cliente {
 	
 	@Id
