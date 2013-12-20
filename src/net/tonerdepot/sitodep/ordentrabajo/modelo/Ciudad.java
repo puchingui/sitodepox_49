@@ -1,16 +1,15 @@
-package com.sitodep.modelo;
+package net.tonerdepot.sitodep.ordentrabajo.modelo;
+
+import java.util.*;
 
 import javax.persistence.*;
 
+import net.tonerdepot.sitodep.jpa.*;
+
 import org.openxava.annotations.*;
 
-/***
- * Representa un Sector de una Ciudad
- * @author Kenneth Burgos
- *
- */
 @Entity
-public class Sector extends Identificable {
+public class Ciudad extends Identificable {
 
 	@Required
 	@Column(length=64, unique=true)
@@ -18,11 +17,10 @@ public class Sector extends Identificable {
 	
 	@ManyToOne
 	@DescriptionsList
-	private Ciudad ciudad;
-	
-	@ManyToOne
-	@DescriptionsList
 	private Provincia provincia;
+	
+	@OneToMany(mappedBy="ciudad")
+	private Collection<Sector> sectores;
 
 	public String getNombre() {
 		return nombre;
@@ -32,19 +30,19 @@ public class Sector extends Identificable {
 		this.nombre = nombre;
 	}
 
-	public Ciudad getCiudad() {
-		return ciudad;
-	}
-
-	public void setCiudad(Ciudad ciudad) {
-		this.ciudad = ciudad;
-	}
-
 	public Provincia getProvincia() {
 		return provincia;
 	}
 
 	public void setProvincia(Provincia provincia) {
 		this.provincia = provincia;
+	}
+
+	public Collection<Sector> getSectores() {
+		return sectores;
+	}
+
+	public void setSectores(Collection<Sector> sectores) {
+		this.sectores = sectores;
 	}
 }

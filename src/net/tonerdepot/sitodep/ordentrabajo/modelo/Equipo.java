@@ -1,8 +1,10 @@
-package com.sitodep.modelo;
+package net.tonerdepot.sitodep.ordentrabajo.modelo;
 
 import java.util.*;
 
 import javax.persistence.*;
+
+import net.tonerdepot.sitodep.inventario.modelo.*;
 
 import org.openxava.annotations.*;
 

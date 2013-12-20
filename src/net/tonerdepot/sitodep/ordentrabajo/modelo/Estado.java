@@ -1,14 +1,12 @@
-package com.sitodep.modelo;
+package net.tonerdepot.sitodep.ordentrabajo.modelo;
 
 import javax.persistence.*;
 
-import org.openxava.annotations.*;
-
 @Entity
-public class Tipo extends Identificable {
-	
-	@Required
-	@Column(length=50)
+public class Estado {
+
+	@Id
+	@Column(length=30)
 	private String descripcion;
 
 	public String getDescripcion() {

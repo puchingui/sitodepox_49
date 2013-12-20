@@ -1,4 +1,4 @@
-package com.sitodep.modelo;
+package net.tonerdepot.sitodep.ordentrabajo.modelo;
 
 import javax.persistence.*;
 
