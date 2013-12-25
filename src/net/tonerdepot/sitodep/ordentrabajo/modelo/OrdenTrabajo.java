@@ -22,6 +22,9 @@ import org.openxava.jpa.*;
 						+ "algoMasQueTrajo;"
 						+ "diagnosticoUsuario];"
 			+ "observaciones };"
+			+ "Cotizaciones { cotizacion1;"
+						+ "cotizacion2;"
+						+ "cotizacion3 }"
 			+ "Solucion { reparador; "
 						+ "fechaSolucion; "
 						+ "diagnosticoTecnico }")
@@ -86,6 +89,18 @@ public class OrdenTrabajo extends Identificable {
 	
 	@Stereotype("MEMO")
 	private String observaciones;
+	
+	/***
+	 * Pestan~a de Cotizaciones
+	 */
+	@Stereotype("PHOTO")
+	private byte[] cotizacion1;
+	
+	@Stereotype("PHOTO")
+	private byte[] cotizacion2;
+	
+	@Stereotype("PHOTO")
+	private byte[] cotizacion3;
 	
 	/***
 	 * Campos para la solucion
@@ -267,6 +282,30 @@ public class OrdenTrabajo extends Identificable {
 
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
+	}
+
+	public byte[] getCotizacion1() {
+		return cotizacion1;
+	}
+
+	public void setCotizacion1(byte[] cotizacion1) {
+		this.cotizacion1 = cotizacion1;
+	}
+
+	public byte[] getCotizacion2() {
+		return cotizacion2;
+	}
+
+	public void setCotizacion2(byte[] cotizacion2) {
+		this.cotizacion2 = cotizacion2;
+	}
+
+	public byte[] getCotizacion3() {
+		return cotizacion3;
+	}
+
+	public void setCotizacion3(byte[] cotizacion3) {
+		this.cotizacion3 = cotizacion3;
 	}
 
 	public Empleado getReparador() {
