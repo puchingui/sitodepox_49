@@ -1,12 +1,10 @@
-package net.tonerdepot.sitodep.ordentrabajo.modelo;
+package net.tonerdepot.sitodep.modelo;
 
 import javax.persistence.*;
 
-import net.tonerdepot.sitodep.jpa.*;
-
 import org.openxava.annotations.*;
 
-@Entity
+@Entity(name="net.tonerdepot.sitodep.modelo.Empleado")
 @Tab(properties="nombre, rol.descripcion")
 public class Empleado extends Identificable {
 

@@ -1,4 +1,4 @@
-package net.tonerdepot.sitodep.inventario.modelo;
+package net.tonerdepot.sitodep.modelo;
 
 import java.util.*;
 
@@ -6,9 +6,7 @@ import javax.persistence.*;
 
 import org.openxava.annotations.*;
 
-import net.tonerdepot.sitodep.jpa.*;
-
-@Entity
+@Entity(name="net.tonerdepot.sitodep.modelo.Ubicacion")
 public class Ubicacion extends Identificable {
 
 	@Required

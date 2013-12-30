@@ -1,4 +1,4 @@
-package net.tonerdepot.sitodep.ordentrabajo.modelo;
+package net.tonerdepot.sitodep.modelo;
 
 import java.util.*;
 
@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 import org.openxava.annotations.*;
 
-@Entity
+@Entity(name="net.tonerdepot.sitodep.modelo.Cliente")
 @Tab(properties="rnc, nombre, contacto, email, telefono")
 @View(name="Simple", members="rnc, nombre")
 public class Cliente {

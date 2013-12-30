@@ -1,8 +1,8 @@
-package net.tonerdepot.sitodep.ordentrabajo.modelo;
+package net.tonerdepot.sitodep.modelo;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name="net.tonerdepot.sitodep.modelo.Estado")
 public class Estado {
 
 	@Id

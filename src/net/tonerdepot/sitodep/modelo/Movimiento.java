@@ -1,4 +1,4 @@
-package net.tonerdepot.sitodep.inventario.modelo;
+package net.tonerdepot.sitodep.modelo;
 
 import java.util.*;
 
@@ -7,11 +7,8 @@ import javax.persistence.*;
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
 
-import net.tonerdepot.sitodep.jpa.*;
-import net.tonerdepot.sitodep.ordentrabajo.modelo.*;
-
-@Entity
-@Tab(properties="conduce, codigo, fecha, cliente.nombre, motivo.descripcion, producto.serial, producto.marca.nombre, producto.modelo")
+@Entity(name="net.tonerdepot.sitodep.modelo.Movimiento")
+//@Tab(properties="conduce, codigo, fecha, cliente.nombre, motivo.descripcion, producto.serial, producto.marca.nombre, producto.modelo")
 @Views({
 	@View(members="conduce, codigo, fecha; departamento, motivo; cliente; producto"),
 	@View(name="NoProducto", members="conduce, codigo, fecha; departamento, motivo; cliente")

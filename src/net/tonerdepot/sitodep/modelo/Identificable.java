@@ -1,4 +1,4 @@
-package net.tonerdepot.sitodep.jpa;
+package net.tonerdepot.sitodep.modelo;
 
 import javax.persistence.*;
 

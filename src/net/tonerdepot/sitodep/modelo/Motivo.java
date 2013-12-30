@@ -1,15 +1,11 @@
-package net.tonerdepot.sitodep.ordentrabajo.modelo;
+package net.tonerdepot.sitodep.modelo;
 
 import javax.persistence.*;
 
-import net.tonerdepot.sitodep.jpa.*;
+@Entity(name="net.tonerdepot.sitodep.modelo.Motivo")
+public class Motivo extends Identificable {
 
-import org.openxava.annotations.*;
-
-@Entity
-public class Rol extends Identificable {
-
-	@Required
+	@Column(length=32, unique=true)
 	private String descripcion;
 
 	public String getDescripcion() {

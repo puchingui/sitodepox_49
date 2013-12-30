@@ -1,16 +1,14 @@
-package net.tonerdepot.sitodep.ordentrabajo.modelo;
+package net.tonerdepot.sitodep.modelo;
 
 import java.util.*;
 
 import javax.persistence.*;
 
-import net.tonerdepot.sitodep.jpa.*;
-
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
 import org.openxava.jpa.*;
 
-@Entity
+@Entity(name="net.tonerdepot.sitodep.modelo.OrdenTrabajo")
 @Tab(properties="ano, codigo, fecha, cliente.nombre, estado.descripcion, prioridad, equipo.serial, equipo.modelo")
 	@View(members="ano, codigo, fecha, estado, prioridad;"
 			+ "Datos { cliente;"

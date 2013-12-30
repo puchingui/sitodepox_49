@@ -1,14 +1,12 @@
-package net.tonerdepot.sitodep.ordentrabajo.modelo;
+package net.tonerdepot.sitodep.modelo;
 
 import java.util.*;
 
 import javax.persistence.*;
 
-import net.tonerdepot.sitodep.jpa.*;
-
 import org.openxava.annotations.*;
 
-@Entity
+@Entity(name="net.tonerdepot.sitodep.modelo.Ciudad")
 public class Ciudad extends Identificable {
 
 	@Required

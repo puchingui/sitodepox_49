@@ -1,14 +1,12 @@
-package net.tonerdepot.sitodep.ordentrabajo.modelo;
+package net.tonerdepot.sitodep.modelo;
 
 import java.util.*;
 
 import javax.persistence.*;
 
-import net.tonerdepot.sitodep.inventario.modelo.*;
-
 import org.openxava.annotations.*;
 
-@Entity
+@Entity(name="net.tonerdepot.sitodep.modelo.Equipo")
 @Tab(properties="serial, tipo.descripcion, marca.nombre, modelo, cliente.nombre")
 @Views({
 	@View(members="serial, tipo, marca, modelo; "
