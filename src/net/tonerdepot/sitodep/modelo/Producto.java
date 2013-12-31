@@ -1,12 +1,10 @@
-package net.tonerdepot.sitodep.inventario.modelo;
+package net.tonerdepot.sitodep.modelo;
 
 import java.util.*;
 
 import javax.persistence.*;
 
 import org.openxava.annotations.*;
-
-import net.tonerdepot.sitodep.jpa.*;
 
 @Entity
 @Tab(properties="serial, tipo.descripcion, marca.nombre, modelo, ubicacion.nombre")

@@ -1,4 +1,4 @@
-package net.tonerdepot.sitodep.inventario.modelo;
+package net.tonerdepot.sitodep.modelo;
 
 import java.util.*;
 
@@ -6,9 +6,6 @@ import javax.persistence.*;
 
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
-
-import net.tonerdepot.sitodep.jpa.*;
-import net.tonerdepot.sitodep.ordentrabajo.modelo.*;
 
 @Entity
 @Tab(properties="conduce, codigo, fecha, cliente.nombre, motivo.descripcion, producto.serial, producto.marca.nombre, producto.modelo")

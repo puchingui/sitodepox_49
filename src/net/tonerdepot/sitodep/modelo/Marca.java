@@ -1,8 +1,6 @@
-package net.tonerdepot.sitodep.inventario.modelo;
+package net.tonerdepot.sitodep.modelo;
 
 import javax.persistence.*;
-
-import net.tonerdepot.sitodep.jpa.*;
 
 import org.openxava.annotations.*;
 
