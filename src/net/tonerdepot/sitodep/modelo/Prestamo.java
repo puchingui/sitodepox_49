@@ -8,18 +8,23 @@ import org.openxava.annotations.*;
 import org.openxava.calculators.*;
 
 @Entity
-@Tab(properties="conduce, codigo, fecha, cliente.nombre, motivo.descripcion, producto.serial, producto.marca.nombre, producto.modelo")
+@Tab(properties="conduce, fecha, cliente.nombre, motivo.descripcion, producto.serial, producto.marca.nombre, producto.modelo, recibido")
 @Views({
-	@View(members="conduce, codigo, fecha; departamento, motivo; cliente; producto"),
-	@View(name="NoProducto", members="conduce, codigo, fecha; departamento, motivo; cliente")
+	@View(members="Datos {conduce, codigo, fecha, recibido; departamento, motivo; cliente; producto} Recibo {reciboDePrestamo}"),
+	@View(name="NoProducto", members="Datos {conduce, codigo, fecha, recibido; departamento, motivo; cliente} Recibo {reciboDePrestamo}"),
+	@View(name="Simple", members="conduce, codigo; cliente; producto")
 })
-public class Movimiento extends Identificable {
+public class Prestamo {
 
+	@Id
 	@Column(length=6)
-	private int conduce;
+	private String conduce;
 	
 	@Column(length=4)
 	private int codigo;
+	
+	@ReadOnly
+	private boolean recibido = false;
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	@ReferenceView("Simple")
@@ -37,13 +42,18 @@ public class Movimiento extends Identificable {
 	
 	@ManyToOne
 	@ReferenceView("Simple")
+	@Required
 	private Producto producto;
-
-	public int getConduce() {
+	
+	@OneToOne(mappedBy="prestamo")
+	@ReferenceView("NoProducto")
+	private ReciboDePrestamo reciboDePrestamo;
+	
+	public String getConduce() {
 		return conduce;
 	}
 
-	public void setConduce(int conduce) {
+	public void setConduce(String conduce) {
 		this.conduce = conduce;
 	}
 
@@ -53,6 +63,14 @@ public class Movimiento extends Identificable {
 
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
+	}
+
+	public boolean isRecibido() {
+		return recibido;
+	}
+
+	public void setRecibido(boolean recibido) {
+		this.recibido = recibido;
 	}
 
 	public Cliente getCliente() {
@@ -93,5 +111,18 @@ public class Movimiento extends Identificable {
 
 	public void setProducto(Producto producto) {
 		this.producto = producto;
+	}
+
+	public ReciboDePrestamo getReciboDePrestamo() {
+		return reciboDePrestamo;
+	}
+
+	public void setReciboDePrestamo(ReciboDePrestamo reciboDePrestamo) {
+		this.reciboDePrestamo = reciboDePrestamo;
+	}
+
+	@PrePersist
+	public void cambiaUbicacionProducto() throws Exception {
+		producto.setUbicacion(Producto.Ubicacion.Prestado);
 	}
 }

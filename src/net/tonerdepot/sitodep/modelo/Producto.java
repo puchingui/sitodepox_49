@@ -7,7 +7,7 @@ import javax.persistence.*;
 import org.openxava.annotations.*;
 
 @Entity
-@Tab(properties="serial, tipo.descripcion, marca.nombre, modelo, ubicacion.nombre")
+@Tab(properties="serial, tipo.descripcion, marca.nombre, modelo, ubicacion")
 @View(name="Simple", members="serial, tipo, marca, modelo")
 public class Producto extends Identificable {
 
@@ -27,15 +27,27 @@ public class Producto extends Identificable {
 	@Column(length=32)
 	private String modelo;
 	
-	@ManyToOne
-	@DescriptionsList(descriptionProperties="nombre")
+	@Enumerated(EnumType.STRING)
 	private Ubicacion ubicacion;
 	
 	@OneToMany(mappedBy="producto")
 	@CollectionView("NoProducto")
 	@ListAction("ManyToMany.new")
-	@ListProperties("conduce, codigo, cliente.nombre, motivo.descripcion")
-	private Collection<Movimiento> movimientos;
+	@ListProperties("conduce, codigo, fecha, cliente.nombre, motivo.descripcion")
+	private Collection<Prestamo> prestamos;
+	
+	@OneToMany(mappedBy="producto")
+	@CollectionView("NoProducto")
+	@ListAction("ManyToMany.new")
+	@ListProperties("fecha, tecnico.nombre, producto.serial, reporte")
+	private Collection<Mantenimiento> mantenimientos;
+	
+	public enum Ubicacion {
+		Almacen1,
+		Almacen2,
+		Taller,
+		Prestado
+	}
 
 	public String getSerial() {
 		return serial;
@@ -77,11 +89,19 @@ public class Producto extends Identificable {
 		this.ubicacion = ubicacion;
 	}
 
-	public Collection<Movimiento> getMovimientos() {
-		return movimientos;
+	public Collection<Prestamo> getPrestamos() {
+		return prestamos;
 	}
 
-	public void setMovimientos(Collection<Movimiento> movimientos) {
-		this.movimientos = movimientos;
+	public void setPrestamos(Collection<Prestamo> prestamos) {
+		this.prestamos = prestamos;
+	}
+
+	public Collection<Mantenimiento> getMantenimientos() {
+		return mantenimientos;
+	}
+
+	public void setMantenimientos(Collection<Mantenimiento> mantenimientos) {
+		this.mantenimientos = mantenimientos;
 	}
 }
