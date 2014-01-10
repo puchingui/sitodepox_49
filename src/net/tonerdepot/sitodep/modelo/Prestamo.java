@@ -44,7 +44,7 @@ public class Prestamo {
 	@ManyToOne
 	@ReferenceView("Simple")
 	@Required
-	//@SearchAction("Prestamo.buscarProducto")
+	@SearchAction("Prestamo.buscarProducto")
 	private Producto producto;
 	
 	@OneToOne(mappedBy="prestamo")

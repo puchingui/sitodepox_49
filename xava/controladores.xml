@@ -3,24 +3,36 @@
 
 <controladores>
 
-  <!-- Las acciones definidas en este controlador estaran disponibles
-  para todos los modulos de la aplicacion Sitodep -->
-  <controlador nombre="Sitodep">
+	<!-- Las acciones definidas en este controlador estaran disponibles 
+	para todos los modulos de la aplicacion Sitodep -->
+	<controlador nombre="Sitodep">
 
-    <hereda-de controlador="Typical"/>
+		<hereda-de controlador="Typical"/>
   
-  </controlador>
+	</controlador>
   
-  <controlador nombre="Producto">
+	<!-- Producto -->
+	<controlador nombre="Producto">
   
-  	<hereda-de controlador="Sitodep"/>
+		<hereda-de controlador="Sitodep"/>
   	
-    <accion nombre="almacenarEn1" modo="list" confirmar="true" 
-      clase="net.tonerdepot.sitodep.actions.AlmacenarEn1Action"/>
+		<accion nombre="almacenarEn1" modo="list" confirmar="true" 
+			clase="net.tonerdepot.sitodep.actions.AlmacenarEn1Action"/>
     
-    <accion nombre="almacenarEn2" modo="list" confirmar="true" 
-      clase="net.tonerdepot.sitodep.actions.AlmacenarEn2Action"/>
+		<accion nombre="almacenarEn2" modo="list" confirmar="true" 
+			clase="net.tonerdepot.sitodep.actions.AlmacenarEn2Action"/>
       
-  </controlador>
+	</controlador>
+  
+	<!-- Prestamo -->
+	<controlador nombre="Prestamo">
+  
+		<hereda-de controlador="Sitodep"/>
+    
+		<accion nombre="buscarProducto" 
+			clase="net.tonerdepot.sitodep.actions.BuscarProductoDesdePrestamoAction"
+			oculta="true" imagen="images/search.gif"/>
+  
+	</controlador>
 
 </controladores>
