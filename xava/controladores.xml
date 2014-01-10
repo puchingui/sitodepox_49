@@ -34,5 +34,16 @@
 			oculta="true" imagen="images/search.gif"/>
   
 	</controlador>
+	
+	<!-- ReciboDePrestamo -->
+	<controlador nombre="ReciboDePrestamo">
+	
+		<hereda-de controlador="Sitodep"/>
+		
+		<accion nombre="buscarPrestamo" 
+			clase="net.tonerdepot.sitodep.actions.BuscarPrestamoDesdeReciboAction" 
+			oculta="true" imagen="images/search.gif"/>
+	
+	</controlador>
 
 </controladores>

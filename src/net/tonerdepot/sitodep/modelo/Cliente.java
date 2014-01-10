@@ -7,13 +7,17 @@ import javax.persistence.*;
 import org.openxava.annotations.*;
 
 @Entity
-@Tab(properties="rnc, nombre, contacto, email, telefono")
-@View(name="Simple", members="rnc, nombre")
+@Tab(properties="rnc, codigo, nombre, contacto, email, telefono")
+@View(name="Simple", members="rnc, codigo, nombre")
 public class Cliente {
 	
 	@Id
 	@Column(length=13)
 	private String rnc;
+	
+	@Column(length=4)
+	@SearchKey
+	private int codigo;
 	
 	@Required
 	@Column(length=50)
@@ -45,6 +49,14 @@ public class Cliente {
 	
 	public String getRnc() {
 		return rnc;
+	}
+
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
 
 	public void setRnc(String rnc) {

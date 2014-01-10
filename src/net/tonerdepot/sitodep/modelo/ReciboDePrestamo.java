@@ -8,8 +8,8 @@ import org.openxava.annotations.*;
 import org.openxava.calculators.*;
 
 @Entity
-@Tab(properties="fecha, recibidoPor.nombre, prestamo.producto.serial, nota")
-@View(name="NoProducto", members="fecha, recibidoPor; nota")
+@Tab(properties="fecha, prestamo.cliente.nombre, prestamo.producto.serial, recibidoPor.nombre")
+@View(members="fecha, recibidoPor; prestamo; nota")
 public class ReciboDePrestamo extends Identificable {
 
 	@DefaultValueCalculator(CurrentDateCalculator.class)
@@ -17,6 +17,7 @@ public class ReciboDePrestamo extends Identificable {
 	
 	@OneToOne
 	@ReferenceView("Simple")
+	@SearchAction("ReciboDePrestamo.buscarPrestamo")
 	private Prestamo prestamo;
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)

@@ -9,10 +9,10 @@ import org.openxava.annotations.*;
 @Entity
 @Tab(properties="serial, tipo.descripcion, marca.nombre, modelo, ubicacion")
 @View(name="Simple", members="serial, tipo, marca, modelo")
-public class Producto extends Identificable {
+public class Producto {
 
-	@Required
-	@Column(length=32, unique=true)
+	@Id
+	@Column(length=32)
 	private String serial;
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
@@ -33,7 +33,7 @@ public class Producto extends Identificable {
 	@OneToMany(mappedBy="producto")
 	@CollectionView("NoProducto")
 	@ListAction("ManyToMany.new")
-	@ListProperties("conduce, codigo, fecha, cliente.nombre, motivo.descripcion, recibido")
+	@ListProperties("conduce, fecha, cliente.codigo, cliente.nombre, motivo.descripcion, recibido")
 	private Collection<Prestamo> prestamos;
 	
 	@OneToMany(mappedBy="producto")

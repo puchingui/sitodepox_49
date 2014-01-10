@@ -10,19 +10,16 @@ import org.openxava.calculators.*;
 @Entity
 @Tab(properties="conduce, fecha, cliente.nombre, motivo.descripcion, producto.serial, producto.marca.nombre, producto.modelo, recibido")
 @Views({
-	@View(members="Datos {conduce, codigo, fecha, recibido; departamento, motivo; cliente; producto} Recibo {reciboDePrestamo}"),
-	@View(name="Simple", members="conduce, codigo; cliente; producto"),
-	@View(name="NoProducto", members="Datos {conduce, codigo, fecha, recibido; departamento, motivo; cliente} Recibo {reciboDePrestamo}"),
-	@View(name="NoCliente", members="Datos {conduce, codigo, fecha, recibido; departamento, motivo; producto} Recibo {reciboDePrestamo}")
+	@View(members="Datos {conduce, fecha, recibido; departamento, motivo; cliente; producto} Recibo {reciboDePrestamo}"),
+	@View(name="Simple", members="conduce; cliente; producto"),
+	@View(name="NoProducto", members="Datos {conduce, fecha, recibido; departamento, motivo; cliente} Recibo {reciboDePrestamo}"),
+	@View(name="NoCliente", members="Datos {conduce, fecha, recibido; departamento, motivo; producto} Recibo {reciboDePrestamo}")
 })
 public class Prestamo {
 
 	@Id
 	@Column(length=6)
 	private String conduce;
-	
-	@Column(length=4)
-	private int codigo;
 	
 	@ReadOnly
 	private boolean recibido = false;
@@ -48,7 +45,6 @@ public class Prestamo {
 	private Producto producto;
 	
 	@OneToOne(mappedBy="prestamo")
-	@ReferenceView("NoProducto")
 	private ReciboDePrestamo reciboDePrestamo;
 	
 	public String getConduce() {
@@ -57,14 +53,6 @@ public class Prestamo {
 
 	public void setConduce(String conduce) {
 		this.conduce = conduce;
-	}
-
-	public int getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
 	}
 
 	public boolean isRecibido() {
