@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE controladores SYSTEM "dtds/controladores.dtd">
+
+<controladores>
+
+  <!-- Las acciones definidas en este controlador estaran disponibles
+  para todos los modulos de la aplicacion Sitodep -->
+  <controlador nombre="Sitodep">
+
+    <hereda-de controlador="Typical"/>
+  
+  </controlador>
+  
+  <controlador nombre="Producto">
+  
+  	<hereda-de controlador="Sitodep"/>
+  	
+    <accion nombre="almacenarEn1" modo="list" confirmar="true" 
+      clase="net.tonerdepot.sitodep.actions.AlmacenarEn1Action"/>
+    
+    <accion nombre="almacenarEn2" modo="list" confirmar="true" 
+      clase="net.tonerdepot.sitodep.actions.AlmacenarEn2Action"/>
+      
+  </controlador>
+
+</controladores>
