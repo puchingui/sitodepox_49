@@ -33,7 +33,7 @@ public class Producto extends Identificable {
 	@OneToMany(mappedBy="producto")
 	@CollectionView("NoProducto")
 	@ListAction("ManyToMany.new")
-	@ListProperties("conduce, codigo, fecha, cliente.nombre, motivo.descripcion")
+	@ListProperties("conduce, codigo, fecha, cliente.nombre, motivo.descripcion, recibido")
 	private Collection<Prestamo> prestamos;
 	
 	@OneToMany(mappedBy="producto")

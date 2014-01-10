@@ -38,6 +38,11 @@ public class Cliente {
 	@ListProperties("codigo, fecha, estado.descripcion, prioridad, equipo.serial, equipo.modelo")
 	private Collection<OrdenTrabajo> ordenes;
 	
+	@OneToMany(mappedBy="cliente")
+	@CollectionView("NoCliente")
+	@ListProperties("conduce, fecha, motivo.descripcion, producto.serial, producto.marca.nombre, producto.modelo, recibido")
+	private Collection<Prestamo> prestamos;
+	
 	public String getRnc() {
 		return rnc;
 	}
@@ -100,5 +105,13 @@ public class Cliente {
 
 	public void setOrdenes(Collection<OrdenTrabajo> ordenes) {
 		this.ordenes = ordenes;
+	}
+
+	public Collection<Prestamo> getPrestamos() {
+		return prestamos;
+	}
+
+	public void setPrestamos(Collection<Prestamo> prestamos) {
+		this.prestamos = prestamos;
 	}
 }

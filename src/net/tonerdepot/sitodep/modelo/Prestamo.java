@@ -11,8 +11,9 @@ import org.openxava.calculators.*;
 @Tab(properties="conduce, fecha, cliente.nombre, motivo.descripcion, producto.serial, producto.marca.nombre, producto.modelo, recibido")
 @Views({
 	@View(members="Datos {conduce, codigo, fecha, recibido; departamento, motivo; cliente; producto} Recibo {reciboDePrestamo}"),
+	@View(name="Simple", members="conduce, codigo; cliente; producto"),
 	@View(name="NoProducto", members="Datos {conduce, codigo, fecha, recibido; departamento, motivo; cliente} Recibo {reciboDePrestamo}"),
-	@View(name="Simple", members="conduce, codigo; cliente; producto")
+	@View(name="NoCliente", members="Datos {conduce, codigo, fecha, recibido; departamento, motivo; producto} Recibo {reciboDePrestamo}")
 })
 public class Prestamo {
 
@@ -26,7 +27,7 @@ public class Prestamo {
 	@ReadOnly
 	private boolean recibido = false;
 	
-	@ManyToOne(fetch=FetchType.LAZY, optional=false)
+	@ManyToOne
 	@ReferenceView("Simple")
 	private Cliente cliente;
 	
@@ -43,6 +44,7 @@ public class Prestamo {
 	@ManyToOne
 	@ReferenceView("Simple")
 	@Required
+	//@SearchAction("Prestamo.buscarProducto")
 	private Producto producto;
 	
 	@OneToOne(mappedBy="prestamo")
