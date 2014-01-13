@@ -45,5 +45,16 @@
 			oculta="true" imagen="images/search.gif"/>
 	
 	</controlador>
+	
+	<!-- Mantenimiento -->
+	<controlador nombre="Mantenimiento">
+	
+		<hereda-de controlador="Sitodep"/>
+		
+		<accion nombre="buscarProducto" 
+			clase="net.tonerdepot.sitodep.actions.BuscarProductoDesdeMantenimientoAction" 
+			oculta="true" imagen="images/search.gif"/>
+	
+	</controlador>
 
 </controladores>

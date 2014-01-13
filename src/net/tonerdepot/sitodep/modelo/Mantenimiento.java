@@ -19,6 +19,7 @@ public class Mantenimiento extends Identificable {
 	
 	@ManyToOne
 	@ReferenceView("Simple")
+	@SearchAction("Mantenimiento.buscarProducto")
 	private Producto producto;
 	
 	@Stereotype("MEMO")
