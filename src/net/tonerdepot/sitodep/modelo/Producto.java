@@ -4,6 +4,7 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.hibernate.validator.*;
 import org.openxava.annotations.*;
 
 @Entity
@@ -42,13 +43,16 @@ public class Producto {
 	@ListProperties("fecha, tecnico.nombre, producto.serial, reporte")
 	private Collection<Mantenimiento> mantenimientos;
 	
+	@Hidden
+	private boolean prestado;
+	
 	public enum Ubicacion {
 		Almacen1,
 		Almacen2,
 		Taller,
 		Prestado
 	}
-
+	
 	public String getSerial() {
 		return serial;
 	}
@@ -86,7 +90,7 @@ public class Producto {
 	}
 
 	public void setUbicacion(Ubicacion ubicacion) {
-		this.ubicacion = ubicacion;
+		this.ubicacion = ubicacion;			
 	}
 
 	public Collection<Prestamo> getPrestamos() {
@@ -103,5 +107,21 @@ public class Producto {
 
 	public void setMantenimientos(Collection<Mantenimiento> mantenimientos) {
 		this.mantenimientos = mantenimientos;
+	}	
+	
+	public boolean isPrestado() {
+		return prestado;
+	}
+
+	public void setPrestado(boolean prestado) {
+		this.prestado = prestado;
+	}
+	
+	@AssertTrue(message="Este producto esta prestado, no puede modificarse.")
+	private boolean isProductoPrestado() {
+		if(ubicacion != Ubicacion.Prestado && isPrestado()){
+			return false;
+		}
+		return true;
 	}
 }

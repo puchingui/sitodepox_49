@@ -26,6 +26,8 @@ public class Prestamo {
 	
 	@ManyToOne
 	@ReferenceView("Simple")
+	@NoCreate
+	@NoModify
 	private Cliente cliente;
 	
 	@Column(length=32)
@@ -36,12 +38,15 @@ public class Prestamo {
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=true)
 	@DescriptionsList
+	@NoModify
+	@NoCreate
 	private Motivo motivo;
 	
 	@ManyToOne
 	@ReferenceView("Simple")
 	@Required
 	@SearchAction("Prestamo.buscarProducto")
+	@NoModify
 	private Producto producto;
 	
 	@OneToOne(mappedBy="prestamo")
@@ -113,6 +118,7 @@ public class Prestamo {
 
 	@PrePersist
 	public void cambiaUbicacionProducto() throws Exception {
+		producto.setPrestado(true);
 		producto.setUbicacion(Producto.Ubicacion.Prestado);
 	}
 }

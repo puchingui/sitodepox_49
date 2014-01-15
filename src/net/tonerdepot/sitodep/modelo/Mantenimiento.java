@@ -5,12 +5,14 @@ import java.util.*;
 import javax.persistence.*;
 
 import org.openxava.annotations.*;
+import org.openxava.calculators.*;
 
 @Entity
 @Tab(properties="fecha, tecnico.nombre, reporte, producto.serial")
 @View(name="NoProducto", members="fecha, tecnico.nombre; reporte")
 public class Mantenimiento extends Identificable {
 
+	@DefaultValueCalculator(CurrentDateCalculator.class)
 	private Date fecha;
 	
 	@ManyToOne

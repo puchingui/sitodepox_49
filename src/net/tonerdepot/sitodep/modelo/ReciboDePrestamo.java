@@ -6,12 +6,18 @@ import javax.persistence.*;
 
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
+import org.openxava.jpa.*;
 
 @Entity
-@Tab(properties="fecha, prestamo.cliente.nombre, prestamo.producto.serial, recibidoPor.nombre")
-@View(members="fecha, recibidoPor; prestamo; nota")
+@Tab(properties="codigo, fecha, prestamo.cliente.nombre, prestamo.producto.serial, recibidoPor.nombre")
+@View(members="codigo, fecha, recibidoPor; prestamo; nota")
 public class ReciboDePrestamo extends Identificable {
 
+	@SearchKey
+	@Column(length = 6)
+	@ReadOnly
+	private int codigo;
+	
 	@DefaultValueCalculator(CurrentDateCalculator.class)
 	private Date fecha;
 	
@@ -22,10 +28,21 @@ public class ReciboDePrestamo extends Identificable {
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	@DescriptionsList
+	@NoCreate
+	@NoModify
 	private Empleado recibidoPor;
 	
 	@Stereotype("MEMO")
 	private String nota;
+	
+
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
 
 	public Date getFecha() {
 		return fecha;
@@ -63,5 +80,11 @@ public class ReciboDePrestamo extends Identificable {
 	public void cambiaUbicacionProducto() throws Exception {
 		prestamo.setRecibido(true);
 		prestamo.getProducto().setUbicacion(Producto.Ubicacion.Taller);
+		prestamo.getProducto().setPrestado(false);
+		
+		Query query = XPersistence.getManager().createQuery(
+				"select max(codigo) from " + getClass().getName());
+		Integer ultimoCodigo = (Integer) query.getSingleResult();
+		this.codigo = ultimoCodigo == null ? 1 : ultimoCodigo + 1;
 	}
 }
