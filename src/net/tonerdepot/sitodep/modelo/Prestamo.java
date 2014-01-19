@@ -4,8 +4,12 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import net.tonerdepot.sitodep.modelo.Producto.Ubicacion;
+import net.tonerdepot.sitodep.validators.*;
+
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
+import org.openxava.util.*;
 
 @Entity
 @Tab(properties="conduce, fecha, cliente.nombre, motivo.descripcion, producto.serial, producto.marca.nombre, producto.modelo, recibido")
@@ -15,6 +19,9 @@ import org.openxava.calculators.*;
 	@View(name="NoProducto", members="Datos {conduce, fecha, recibido; departamento, motivo; cliente} Recibo {reciboDePrestamo}"),
 	@View(name="NoCliente", members="Datos {conduce, fecha, recibido; departamento, motivo; producto} Recibo {reciboDePrestamo}")
 })
+@EntityValidator(value = ProductoParaPrestamoValidator.class,
+	properties = {@PropertyValue(name = "producto")}
+)
 public class Prestamo {
 
 	@Id
@@ -120,5 +127,13 @@ public class Prestamo {
 	public void cambiaUbicacionProducto() throws Exception {
 		producto.setPrestado(true);
 		producto.setUbicacion(Producto.Ubicacion.Prestado);
+	}
+	
+	@PreRemove
+	private void validateOnRemove() {
+		if(producto.isPrestado()) {
+			producto.setUbicacion(Ubicacion.Taller);
+			producto.setPrestado(false);
+		}
 	}
 }

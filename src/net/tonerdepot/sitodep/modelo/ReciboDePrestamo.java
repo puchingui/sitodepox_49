@@ -4,6 +4,7 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.hibernate.validator.*;
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
 import org.openxava.jpa.*;
@@ -86,5 +87,10 @@ public class ReciboDePrestamo extends Identificable {
 				"select max(codigo) from " + getClass().getName());
 		Integer ultimoCodigo = (Integer) query.getSingleResult();
 		this.codigo = ultimoCodigo == null ? 1 : ultimoCodigo + 1;
+	}
+	
+	@AssertTrue(message="El producto seleccionado esta en casa.")
+	private boolean prestamoValidator() {
+		return prestamo.getReciboDePrestamo() == null;
 	}
 }

@@ -4,12 +4,16 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.hibernate.validator.*;
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
 
 @Entity
-@Tab(properties="fecha, tecnico.nombre, reporte, producto.serial")
-@View(name="NoProducto", members="fecha, tecnico.nombre; reporte")
+@Tab(properties="fecha, tecnico.nombre, producto.serial, reporte")
+@Views({
+	@View(members="fecha, tecnico; producto; reporte"),
+	@View(name="NoProducto", members="fecha, tecnico; reporte")
+})
 public class Mantenimiento extends Identificable {
 
 	@DefaultValueCalculator(CurrentDateCalculator.class)
@@ -59,8 +63,8 @@ public class Mantenimiento extends Identificable {
 		this.reporte = reporte;
 	}
 	
-	@PrePersist
-	public void cambiaUbicacionProducto() throws Exception {
-		producto.setUbicacion(Producto.Ubicacion.Taller);
+	@AssertTrue(message="El producto elegido no requiere mantenimiento")
+	private boolean productoValidator() {
+		return producto.isPrestado();
 	}
 }

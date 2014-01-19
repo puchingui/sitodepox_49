@@ -119,7 +119,7 @@ public class Producto {
 	
 	@AssertTrue(message="Este producto esta prestado, no puede modificarse.")
 	private boolean isProductoPrestado() {
-		if(ubicacion != Ubicacion.Prestado && isPrestado()){
+		if(ubicacion != Ubicacion.Prestado && isPrestado()) {
 			return false;
 		}
 		return true;
