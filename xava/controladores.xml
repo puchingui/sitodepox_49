@@ -3,11 +3,29 @@
 
 <controladores>
 
+	<var-entorno 
+		nombre="XAVA_SEARCH_ACTION" 
+		valor="Sitodep.busquedaExcluyendoVendido"/>
+
 	<!-- Las acciones definidas en este controlador estaran disponibles 
 	para todos los modulos de la aplicacion Sitodep -->
 	<controlador nombre="Sitodep">
 
 		<hereda-de controlador="Typical"/>
+		
+		<accion nombre="busquedaExcluyendoVendido"
+			oculta="true"
+			clase="net.tonerdepot.sitodep.actions.BusquedaExcluyendoVendidoAction"/>
+		
+		<!-- 180 - 10.25 -->
+		<accion nombre="deleteSelected" modo="list" confirmar="true"
+			clase="net.tonerdepot.sitodep.actions.SitodepDeleteSelectedAction" 
+			atrajo-de-teclado="Control D"/>
+		
+		<accion nombre="deleteRow" modo="NONE" confirmar="true"
+			clase="net.tonerdepot.sitodep.actions.SitodepDeleteSelectedAction"
+			imagen="images/delete.gif"
+			en-cada-fila="true"/>
   
 	</controlador>
   
@@ -21,6 +39,9 @@
     
 		<accion nombre="almacenarEn2" modo="list" confirmar="true" 
 			clase="net.tonerdepot.sitodep.actions.AlmacenarEn2Action"/>
+			
+		<accion nombre="vendido" modo="detail" confirmar="true" 
+			clase="net.tonerdepot.sitodep.actions.VenderProductoAction"/>
       
 	</controlador>
   
@@ -54,6 +75,23 @@
 		<accion nombre="buscarProducto" 
 			clase="net.tonerdepot.sitodep.actions.BuscarProductoDesdeMantenimientoAction" 
 			oculta="true" imagen="images/search.gif"/>
+	
+	</controlador>
+	
+	<!-- Archivo (para productos vendidos o borrados) -->
+	<controlador nombre="Archivo">
+	
+		<accion nombre="restaurar" modo="list" confirmar="true"
+			clase="net.tonerdepot.sitodep.actions.SitodepDeleteSelectedAction">
+			<poner propiedad="restaurar" valor="true"/>
+		</accion>
+		
+		<accion nombre="borrar" modo="NONE" confirmar="true" 
+			clase="org.openxava.actions.DeleteSelectedAction" 
+			imagen="images/delete.gif" 
+			atajo-de-teclado="Control D"
+			en-cada-fila="true"/>
+			
 	
 	</controlador>
 

@@ -14,7 +14,7 @@ import org.openxava.jpa.*;
 			+ "Datos { cliente;"
 			+ "Quien [recibido, responsable];"
 			+ "Equipo [ equipo;"
-						+ "bandejaSuperior, bandejaInferior, toner;"
+						+ "bandejaSuperior, bandejaInferior, bandejaADF, toner;"
 						+ "cableUSB, cableCorriente, fuente;"
 						+ "falta;"
 						+ "algoMasQueTrajo;"
@@ -60,6 +60,8 @@ public class OrdenTrabajo extends Identificable {
 	private boolean bandejaSuperior;
 	
 	private boolean bandejaInferior;
+	
+	private boolean bandejaADF;
 	
 	private boolean toner;
 	
@@ -200,6 +202,14 @@ public class OrdenTrabajo extends Identificable {
 
 	public void setBandejaInferior(boolean bandejaInferior) {
 		this.bandejaInferior = bandejaInferior;
+	}
+
+	public boolean isBandejaADF() {
+		return bandejaADF;
+	}
+
+	public void setBandejaADF(boolean bandejaADF) {
+		this.bandejaADF = bandejaADF;
 	}
 
 	public boolean isToner() {

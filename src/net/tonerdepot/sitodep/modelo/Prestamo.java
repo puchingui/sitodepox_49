@@ -7,14 +7,16 @@ import javax.persistence.*;
 import net.tonerdepot.sitodep.modelo.Producto.Ubicacion;
 import net.tonerdepot.sitodep.validators.*;
 
+import org.hibernate.validator.*;
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
-import org.openxava.util.*;
 
 @Entity
 @Tab(properties="conduce, fecha, cliente.nombre, motivo.descripcion, producto.serial, producto.marca.nombre, producto.modelo, recibido")
 @Views({
-	@View(members="Datos {conduce, fecha, recibido; departamento, motivo; cliente; producto} Recibo {reciboDePrestamo}"),
+	@View(members="Datos {conduce, fecha, recibido; departamento, motivo; cliente; producto, "
+					+ "Otros [bandejaSuperior, bandejaInferior, bandejaADF, toner;"
+					+ "cableUSB, cableCorriente, fuente]} Recibo {reciboDePrestamo}"),
 	@View(name="Simple", members="conduce; cliente; producto"),
 	@View(name="NoProducto", members="Datos {conduce, fecha, recibido; departamento, motivo; cliente} Recibo {reciboDePrestamo}"),
 	@View(name="NoCliente", members="Datos {conduce, fecha, recibido; departamento, motivo; producto} Recibo {reciboDePrestamo}")
@@ -55,6 +57,20 @@ public class Prestamo {
 	@SearchAction("Prestamo.buscarProducto")
 	@NoModify
 	private Producto producto;
+	
+	private boolean bandejaSuperior;
+	
+	private boolean bandejaInferior;
+	
+	private boolean bandejaADF;
+	
+	private boolean toner;
+	
+	private boolean cableUSB;
+	
+	private boolean cableCorriente;
+	
+	private boolean fuente;
 	
 	@OneToOne(mappedBy="prestamo")
 	private ReciboDePrestamo reciboDePrestamo;
@@ -123,6 +139,62 @@ public class Prestamo {
 		this.reciboDePrestamo = reciboDePrestamo;
 	}
 
+	public boolean isBandejaSuperior() {
+		return bandejaSuperior;
+	}
+
+	public void setBandejaSuperior(boolean bandejaSuperior) {
+		this.bandejaSuperior = bandejaSuperior;
+	}
+
+	public boolean isBandejaInferior() {
+		return bandejaInferior;
+	}
+
+	public void setBandejaInferior(boolean bandejaInferior) {
+		this.bandejaInferior = bandejaInferior;
+	}
+
+	public boolean isBandejaADF() {
+		return bandejaADF;
+	}
+
+	public void setBandejaADF(boolean bandejaADF) {
+		this.bandejaADF = bandejaADF;
+	}
+
+	public boolean isToner() {
+		return toner;
+	}
+
+	public void setToner(boolean toner) {
+		this.toner = toner;
+	}
+
+	public boolean isCableUSB() {
+		return cableUSB;
+	}
+
+	public void setCableUSB(boolean cableUSB) {
+		this.cableUSB = cableUSB;
+	}
+
+	public boolean isCableCorriente() {
+		return cableCorriente;
+	}
+
+	public void setCableCorriente(boolean cableCorriente) {
+		this.cableCorriente = cableCorriente;
+	}
+
+	public boolean isFuente() {
+		return fuente;
+	}
+
+	public void setFuente(boolean fuente) {
+		this.fuente = fuente;
+	}
+
 	@PrePersist
 	public void cambiaUbicacionProducto() throws Exception {
 		producto.setPrestado(true);
@@ -135,5 +207,10 @@ public class Prestamo {
 			producto.setUbicacion(Ubicacion.Taller);
 			producto.setPrestado(false);
 		}
+	}
+	
+	@AssertTrue(message="No puede prestar un producto vendido")
+	private boolean productoNoVendido() {
+		return !producto.isVendido();
 	}
 }

@@ -8,7 +8,13 @@ import org.hibernate.validator.*;
 import org.openxava.annotations.*;
 
 @Entity
-@Tab(properties="serial, tipo.descripcion, marca.nombre, modelo, ubicacion")
+@Tabs({
+	@Tab(properties="serial, tipo.descripcion, marca.nombre, modelo, ubicacion",
+			baseCondition="vendido = false"),
+	@Tab(name="Archivo", 
+			properties="serial, tipo.descripcion, marca.nombre, modelo, ubicacion",
+			baseCondition="vendido = true")
+})
 @View(name="Simple", members="serial, tipo, marca, modelo")
 public class Producto {
 
@@ -45,6 +51,9 @@ public class Producto {
 	
 	@Hidden
 	private boolean prestado;
+	
+	@Hidden
+	private boolean vendido;
 	
 	public enum Ubicacion {
 		Almacen1,
@@ -117,6 +126,14 @@ public class Producto {
 		this.prestado = prestado;
 	}
 	
+	public boolean isVendido() {
+		return vendido;
+	}
+
+	public void setVendido(boolean vendido) {
+		this.vendido = vendido;
+	}
+
 	@AssertTrue(message="Este producto esta prestado, no puede modificarse.")
 	private boolean isProductoPrestado() {
 		if(ubicacion != Ubicacion.Prestado && isPrestado()) {
