@@ -72,7 +72,7 @@ public class Prestamo {
 	
 	private boolean fuente;
 	
-	@OneToOne(mappedBy="prestamo")
+	@OneToOne(mappedBy="prestamo", cascade=CascadeType.REMOVE)
 	private ReciboDePrestamo reciboDePrestamo;
 	
 	public String getConduce() {

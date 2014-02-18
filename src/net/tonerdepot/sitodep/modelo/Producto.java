@@ -37,13 +37,13 @@ public class Producto {
 	@Enumerated(EnumType.STRING)
 	private Ubicacion ubicacion;
 	
-	@OneToMany(mappedBy="producto")
+	@OneToMany(mappedBy="producto", cascade=CascadeType.REMOVE)
 	@CollectionView("NoProducto")
 	@ListAction("ManyToMany.new")
 	@ListProperties("conduce, fecha, cliente.codigo, cliente.nombre, motivo.descripcion, recibido")
 	private Collection<Prestamo> prestamos;
 	
-	@OneToMany(mappedBy="producto")
+	@OneToMany(mappedBy="producto", cascade=CascadeType.REMOVE)
 	@CollectionView("NoProducto")
 	@ListAction("ManyToMany.new")
 	@ListProperties("fecha, tecnico.nombre, producto.serial, reporte")
