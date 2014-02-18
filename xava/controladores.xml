@@ -16,16 +16,6 @@
 		<accion nombre="busquedaExcluyendoVendido"
 			oculta="true"
 			clase="net.tonerdepot.sitodep.actions.BusquedaExcluyendoVendidoAction"/>
-		
-		<!-- 180 - 10.25 -->
-		<accion nombre="deleteSelected" modo="list" confirmar="true"
-			clase="net.tonerdepot.sitodep.actions.SitodepDeleteSelectedAction" 
-			atrajo-de-teclado="Control D"/>
-		
-		<accion nombre="deleteRow" modo="NONE" confirmar="true"
-			clase="net.tonerdepot.sitodep.actions.SitodepDeleteSelectedAction"
-			imagen="images/delete.gif"
-			en-cada-fila="true"/>
   
 	</controlador>
   
@@ -42,6 +32,20 @@
 			
 		<accion nombre="vendido" modo="detail" confirmar="true" 
 			clase="net.tonerdepot.sitodep.actions.VenderProductoAction"/>
+			
+		<!-- 180 - 10.25 -->
+		<accion nombre="deleteSelected" modo="list" confirmar="true"
+			clase="net.tonerdepot.sitodep.actions.SitodepDeleteSelectedAction" 
+			atrajo-de-teclado="Control D">
+			<poner propiedad="restaurar" valor="false"/>
+		</accion>
+		
+		<accion nombre="deleteRow" modo="NONE" confirmar="true"
+			clase="net.tonerdepot.sitodep.actions.SitodepDeleteSelectedAction"
+			imagen="images/delete.gif"
+			en-cada-fila="true">
+			<poner propiedad="restaurar" valor="false"/>
+		</accion>
       
 	</controlador>
   
@@ -91,7 +95,6 @@
 			imagen="images/delete.gif" 
 			atajo-de-teclado="Control D"
 			en-cada-fila="true"/>
-			
 	
 	</controlador>
 
