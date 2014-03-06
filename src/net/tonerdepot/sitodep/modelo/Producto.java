@@ -37,6 +37,9 @@ public class Producto {
 	@Enumerated(EnumType.STRING)
 	private Ubicacion ubicacion;
 	
+	@Stereotype("MEMO")
+	private String observaciones;
+	
 	@OneToMany(mappedBy="producto", cascade=CascadeType.REMOVE)
 	@CollectionView("NoProducto")
 	@ListAction("ManyToMany.new")
@@ -100,6 +103,14 @@ public class Producto {
 
 	public void setUbicacion(Ubicacion ubicacion) {
 		this.ubicacion = ubicacion;			
+	}
+
+	public String getObservaciones() {
+		return observaciones;
+	}
+
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
 	}
 
 	public Collection<Prestamo> getPrestamos() {

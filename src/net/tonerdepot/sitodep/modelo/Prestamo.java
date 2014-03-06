@@ -16,7 +16,7 @@ import org.openxava.calculators.*;
 @Views({
 	@View(members="Datos {conduce, fecha, recibido; departamento, motivo; cliente; producto, "
 					+ "Otros [bandejaSuperior, bandejaInferior, bandejaADF, toner;"
-					+ "cableUSB, cableCorriente, fuente]} Recibo {reciboDePrestamo}"),
+					+ "cableUSB, cableCorriente, fuente] observaciones} Recibo {reciboDePrestamo}"),
 	@View(name="Simple", members="conduce; cliente; producto"),
 	@View(name="NoProducto", members="Datos {conduce, fecha, recibido; departamento, motivo; cliente} Recibo {reciboDePrestamo}"),
 	@View(name="NoCliente", members="Datos {conduce, fecha, recibido; departamento, motivo; producto} Recibo {reciboDePrestamo}")
@@ -71,6 +71,9 @@ public class Prestamo {
 	private boolean cableCorriente;
 	
 	private boolean fuente;
+	
+	@Stereotype("MEMO")
+	private String observaciones;
 	
 	@OneToOne(mappedBy="prestamo", cascade=CascadeType.REMOVE)
 	private ReciboDePrestamo reciboDePrestamo;
@@ -193,6 +196,14 @@ public class Prestamo {
 
 	public void setFuente(boolean fuente) {
 		this.fuente = fuente;
+	}
+
+	public String getObservaciones() {
+		return observaciones;
+	}
+
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
 	}
 
 	@PrePersist
